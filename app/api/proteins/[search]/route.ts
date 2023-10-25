@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { ProteinRecord } from "@/components/ProteinCard";
+import { ProteinRecord } from "@/lib/types";
 import { getProteinNames } from "@/lib/utilities";
 import { useDBURL } from "@/lib/urls";
 
@@ -7,8 +7,11 @@ export async function GET(req: NextRequest, { params }: {params: {search: string
     
     const searchString = params.search
     const dbURL = useDBURL()
+    const searchParams = req.nextUrl.searchParams
+    const offset = searchParams.get('offset')
+    const limit = searchParams.get('limit')
 
-    const matchingProteinsResponse = await fetch(`${dbURL}/proteins/${searchString}`, {cache: 'no-store'})
+    const matchingProteinsResponse = await fetch(`${dbURL}/proteins/${searchString}?offset=${offset}&limit=${limit}`, {cache: 'no-store'})
 
     if (matchingProteinsResponse.status == 204) {
         return new Response(null, {status: 204})

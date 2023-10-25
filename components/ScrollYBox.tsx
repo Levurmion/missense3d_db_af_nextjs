@@ -14,7 +14,6 @@ export default function ScrollYBox ({ children }: { children: ReactNode }) {
     const wrapperRef = useRef(null)
 
     const scrollBoxHeight = useRef(0)
-    const transformScale = useRef(1)
     const [maxTransformDistance, setMaxTransformDistance] = useState(0)
 
     const { scrollYProgress } = useScroll({
@@ -50,7 +49,7 @@ export default function ScrollYBox ({ children }: { children: ReactNode }) {
     return (
         <div className='flex flex-row relative h-full w-full'>
             {/* custom scrollbar */}
-            <div className="flex flex-col h-full w-[1%] min-w-[0.5rem]">
+            <div className="flex flex-col h-full w-2">
                 <motion.div
                     ref={scrollBarRef}
                     className="w-full h-0 bg-slate-300"

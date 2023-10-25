@@ -2,16 +2,12 @@
 
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useRouter } from 'next/navigation';
-import { MouseEvent } from 'react';
+import React, { MouseEvent, forwardRef } from 'react';
+import { ProteinRecord } from '@/lib/types';
 
-export interface ProteinRecord {
-    gene_name: string;
-    uniprot: string;
-    length: number;
-    protein_name: string;
-}
+const ProteinCard = forwardRef<HTMLLIElement, ProteinRecord>((props, ref) => {
 
-export default function ProteinCard ({ gene_name, uniprot, length, protein_name}: ProteinRecord) {
+    const { gene_name, uniprot, length, protein_name } = props
 
     const router = useRouter()
 
@@ -22,15 +18,16 @@ export default function ProteinCard ({ gene_name, uniprot, length, protein_name}
 
     return (
         <li 
-            className="flex flex-col relative w-full overflow-hidden px-3 py-3 border-t-[1px] z-40 group hover:z-50 hover:-translate-y-1 hover:shadow-xl hover:cursor-pointer transition-all text-gray-700"
+            className="relative flex flex-col justify-center bg-white w-full py-2 px-3 border-b group hover:cursor-pointer hover:bg-slate-200"
             id={uniprot}
             onClick={handleCardClick}
+            ref={ref}
         >
-            <h2 className="text-normal sm:text-xl font-normal"><span className="font-semibold text-gray-800">{uniprot}</span> &bull; {gene_name} &bull; {length} aa</h2>
-            <h4 className="text-xs sm:text-lg font-normal whitespace-nowrap text-gray-500">{protein_name}</h4>
+            <span className="text-normal sm:text-xl font-normal"><span className="font-semibold text-gray-800">{uniprot}</span> &bull; {gene_name} &bull; {length} aa</span>
+            <span className="text-xs sm:text-lg font-normal whitespace-nowrap text-gray-500">{protein_name}</span>
 
             {/* mask overflowing text on the right end */}
-            <div className="absolute right-0 bottom-0 h-full w-[7.5%] bg-gradient-to-l from-40% from-white">
+            <div className="absolute right-0 bottom-0 h-full w-[7.5%] bg-gradient-to-l from-40% from-white group-hover:from-slate-200">
             </div>
 
             {/* show see variants text on hover */}
@@ -39,4 +36,6 @@ export default function ProteinCard ({ gene_name, uniprot, length, protein_name}
             </div>
         </li>
     )
-}
+})
+
+export default ProteinCard

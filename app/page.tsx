@@ -18,7 +18,7 @@ export default function Home() {
           <SearchBar placeholder='gene, protein, or Uniprot ID' examples={['LDLR', 'low-density lipoprotein receptor', 'P01130']}/>
         </div>
 
-        <p className='inline text-xl max-w-[75ch] mt-32 text-center'>
+        <p className='inline text-lg sm:text-xl max-w-[75ch] mt-32 text-center'>
           <span className='font-semibold'>Missense3D-DB Alphafold</span> is a database of pre-computed Missense3D predictions of naturally-occurring missense variants evaluated on Alphafold models across the human proteome.
         </p>
 
