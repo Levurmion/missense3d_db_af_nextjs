@@ -1,6 +1,15 @@
 import { prisma } from "@/singleton/prisma"
+import { Prisma } from "@prisma/client"
+
+declare global {
+    var proteinVariants: {[uniprot: string]: {} | null} | undefined
+}
 
 export default async function fetchVariantsServerSide (uniprot: string) {
+
+    if (global?.proteinVariants?.[uniprot]) {
+        return global.proteinVariants[uniprot]
+    }
 
     const prismaResponse = await prisma.proteins.findFirst({
         select: {
@@ -77,5 +86,11 @@ export default async function fetchVariantsServerSide (uniprot: string) {
         }
     })
 
-    return prismaResponse
+    // change Decimal to Number
+    const regularizedPrismaResponse =  JSON.parse(JSON.stringify(prismaResponse))
+
+    if (global.proteinVariants !== undefined) global.proteinVariants[uniprot] = regularizedPrismaResponse
+    else global.proteinVariants = {uniprot: prismaResponse}
+
+    return regularizedPrismaResponse
 }
