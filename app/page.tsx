@@ -15,7 +15,7 @@ export default function Home() {
 
         {/* SearchBar wrapper */}
         <div className='flex flex-row w-full h-10 sm:h-12 2xl:h-14 text-lg sm:text-xl lg:text-2xl'>
-          <SearchBar placeholder='gene, protein, or Uniprot ID' examples={['LDLR', 'low-density lipoprotein receptor', 'P01130']}/>
+          <SearchBar placeholder='gene, protein, or Uniprot ID' examples={['BRCA1', 'Breast cancer type 1 susceptibility protein', 'P38398']}/>
         </div>
 
         <p className='inline text-lg sm:text-xl max-w-[75ch] mt-32 text-center'>
