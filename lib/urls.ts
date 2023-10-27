@@ -1,7 +1,7 @@
 export function useHostURL () {
     const hostname = process.env.HOST_URL
     const port = process.env.HOST_PORT
-    return `${hostname}:${port}`
+    return `${hostname}`
 }
 
 export function useDBURL () {

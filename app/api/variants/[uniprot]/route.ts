@@ -80,6 +80,8 @@ export async function GET(req: NextRequest, { params }: {params: {uniprot: strin
             }
         }
     })
+
+    console.log(prismaResponse)
     
     if (prismaResponse === null) {
         return new Response(null, {status: 204})
