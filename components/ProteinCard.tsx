@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { MouseEvent, forwardRef } from 'react';
 import { ProteinRecord } from '@/lib/types';
 
+// eslint-disable-next-line react/display-name
 const ProteinCard = forwardRef<HTMLLIElement, ProteinRecord>((props, ref) => {
 
     const { gene_name, uniprot, length, protein_name } = props

@@ -34,22 +34,22 @@ export default function NavigationMenu({ breakpoint }: { breakpoint: number }) {
         return <></>;
     } else if (deviceWidth >= breakpoint) {
         return (
-            <div className='flex flex-row text-xl 2xl:text-2xl gap-10 font-semibold items-center justify-between'>
+            <div className='flex flex-row text-lg 2xl:text-xl gap-10 font-semibold items-center justify-between'>
                 <Link href='/documentation' className='relative group'>
                     Documentation
-                    <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-slate-800 -mt-[0.2rem]'></div>
+                    <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-red-700 -mt-[0.2rem]'></div>
                 </Link>
                 <Link href='/statistics' target='_blank' className='relative group'>
                     Statistics
-                    <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-slate-800 -mt-[0.2rem]'></div>
+                    <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-red-700 -mt-[0.2rem]'></div>
                 </Link>
                 <Link href='/contact' target='_blank' className='relative group'>
                     Contact
-                    <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-slate-800 -mt-[0.2rem]'></div>
+                    <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-red-700 -mt-[0.2rem]'></div>
                 </Link>
                 <Link href='http://missense3d.bc.ic.ac.uk/missense3d/' target='_blank' className='relative group'>
                     Missense3D Webserver
-                    <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-slate-800 -mt-[0.2rem]'></div>
+                    <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-red-700 -mt-[0.2rem]'></div>
                 </Link>
             </div>
         );
@@ -79,9 +79,9 @@ function HamburgerMenu() {
                 onClick={() => {
                     setIsOpen((curr) => !curr);
                 }}>
-                <div className='w-[100%] h-[0.2rem] 2xl:h-1 bg-slate-800 rounded-full'></div>
-                <div className='w-[100%] h-[0.2rem] 2xl:h-1 bg-slate-800 rounded-full'></div>
-                <div className='w-[100%] h-[0.2rem] 2xl:h-1 bg-slate-800 rounded-full'></div>
+                <div className='w-[100%] h-[0.2rem] 2xl:h-1 bg-slate-700 rounded-full'></div>
+                <div className='w-[100%] h-[0.2rem] 2xl:h-1 bg-slate-700 rounded-full'></div>
+                <div className='w-[100%] h-[0.2rem] 2xl:h-1 bg-slate-700 rounded-full'></div>
             </div>
             {/* backdrop filter */}
             <section

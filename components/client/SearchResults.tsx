@@ -19,7 +19,7 @@ async function fetchProteins (url: string) {
     else return []
 }
 
-export function fetchPage ( searchString: string, offset: number, limit: number ) {
+export function usePage ( searchString: string, offset: number, limit: number ) {
 
     const { data, isLoading, error } = useSWR(`/api/proteins/${searchString}?offset=${offset}&limit=${limit}`, fetchProteins)
 
@@ -42,7 +42,7 @@ export default function SearchResults({ searchString, limit }: { searchString: s
     const numResults = useRef<null | number>(null)
     const proteinListRef = useRef<null | HTMLUListElement>(null);
 
-    const newPage = fetchPage(searchString, offset, limit);
+    const newPage = usePage(searchString, offset, limit);
 
     useEffect(() => {
         if (newPage && Array.isArray(newPage)) {
@@ -143,7 +143,7 @@ export default function SearchResults({ searchString, limit }: { searchString: s
                     {numResults.current && numResults.current >= limit ? '20+' : numResults.current} result(s)
                 </h2>
             </header>
-            <div ref={containerRef} className='flex flex-col items-center justify-start w-[90vw] sm:w-[80vw] xl:w-[60vw] h-[60vh] bg-white shadow-lg shadow-slate-300 overflow-y-scroll overflow-x-hidden'>
+            <div ref={containerRef} className='flex flex-col border border-slate-300 items-center justify-start w-[90vw] sm:w-[80vw] xl:w-[60vw] h-[60vh] bg-white shadow-lg shadow-slate-300 overflow-y-scroll overflow-x-hidden'>
                 {handleRenderContent()}
             </div>
         </main>
