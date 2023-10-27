@@ -10,18 +10,19 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import Link from "next/link";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { Metadata } from "next";
+import fetchVariantsServerSide from "@/lib/fetchVariantsServerSide";
 
 export const metadata: Metadata = {
     title: 'Missense3D DB Alphafold - Variant'
 }
 
 export default async function VariantsLayout({ children, params }: { children: ReactNode; params: { uniprot: string } }) {
-    const hostUrl = useHostURL();
-    const proteinVariantsRes = await fetch(`${hostUrl}/api/variants/${params.uniprot}`);
 
-    if (proteinVariantsRes.status === 200) {
-        const proteinVariantsJSON: ProteinRecord = await proteinVariantsRes.json();
-        const { protein_name, uniprot, length, missense_variants, gene_name } = proteinVariantsJSON;
+    const proteinVariants = await fetchVariantsServerSide(params.uniprot);
+
+    if (proteinVariants !== null) {
+
+        const { protein_name, uniprot, length, missense_variants, gene_name } = proteinVariants;
         const { name, altNames } = getProteinNames(protein_name);
 
         return (
