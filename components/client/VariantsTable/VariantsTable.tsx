@@ -20,10 +20,13 @@ import { useVariantContext } from "../../contexts/useVariantContext";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
-import DownloadIcon from '@mui/icons-material/Download';
+import DownloadIcon from "@mui/icons-material/Download";
 import styles from "./VariantsTable.module.scss";
 import { useState } from "react";
 import Missense3DPredictionBadge from "@/components/Missense3DPredictionBadge";
+import { extractFlaggedFeatures } from "@/lib/utilities";
+import Link from "next/link";
+import LaunchIcon from "@mui/icons-material/Launch";
 
 type Missense3DPredictionFilterOptions = "neither" | "both" | "pathogenic" | "benign";
 
@@ -67,7 +70,7 @@ const columns = [
     }),
 ];
 
-export default function VariantsTable({ data }: { data: Array<MissenseVariantRecord> }) {
+export default function VariantsTable({ data, uniprot }: { data: Array<MissenseVariantRecord>; uniprot: string }) {
     const variantsData = useRef(data);
     const tableRef = useRef<HTMLDivElement>(null);
     const lastSelected = useRef<null | HTMLTableRowElement>(null);
@@ -97,21 +100,6 @@ export default function VariantsTable({ data }: { data: Array<MissenseVariantRec
         else return "opacity-30";
     };
 
-    const extractFlaggedFeatures = (m3dRecord: Missense3DRecord) => {
-        const features = {
-            ...m3dRecord,
-            damaging: undefined,
-            created_at: undefined,
-            algorithm_version: undefined,
-        };
-        return Object.entries(features)
-            .filter((feature) => {
-                const [featureName, isFlagged] = feature;
-                if (isFlagged) return true;
-            })
-            .map((featureName) => featureName[0].replaceAll("_", " "));
-    };
-
     useEffect(() => {
         // initialize filter value for Missense3D predictions to display both
         table.getHeaderGroups()[0].headers[2].column.setFilterValue("both");
@@ -119,14 +107,11 @@ export default function VariantsTable({ data }: { data: Array<MissenseVariantRec
 
     return (
         <div className='flex w-fit flex-col items-center gap-2 2xl:gap-3'>
-
             <div className='flex flex-row items-center self-start lg:text-lg xl:text-xl 2xl:text-2xl w-full justify-between gap-4'>
-                <span className=" text-white bg-slate-600 px-[0.75%] py-[0.25%] shadow-md whitespace-nowrap">
-                    {data.length} variants
-                </span>
-                <div className="flex flex-col items-center justify-center  text-red-500 hover:text-purple-600 transition-all underline hover:cursor-pointer">
+                <span className=' text-white bg-slate-600 px-[0.75%] py-[0.25%] shadow-md whitespace-nowrap'>{data.length} variants</span>
+                <div className='flex flex-col items-center justify-center  text-red-500 hover:text-purple-600 transition-all underline hover:cursor-pointer'>
                     <a href='/'>
-                        <span className="text-[90%]">download report</span> <DownloadIcon fontSize="inherit" />
+                        <span className='text-[90%]'>download report</span> <DownloadIcon fontSize='inherit' />
                     </a>
                 </div>
             </div>
@@ -205,7 +190,7 @@ export default function VariantsTable({ data }: { data: Array<MissenseVariantRec
                             <span className='font-medium'>Missense3D prediction</span>
                             <div className='flex flex-row gap-2'>
                                 <input
-                                    className="cursor-pointer"
+                                    className='cursor-pointer'
                                     defaultChecked
                                     type='checkbox'
                                     name='pathogenic'
@@ -229,7 +214,7 @@ export default function VariantsTable({ data }: { data: Array<MissenseVariantRec
                             </div>
                             <div className='flex flex-row gap-2'>
                                 <input
-                                    className="cursor-pointer"
+                                    className='cursor-pointer'
                                     defaultChecked
                                     type='checkbox'
                                     name='benign'
@@ -317,26 +302,28 @@ export default function VariantsTable({ data }: { data: Array<MissenseVariantRec
                     </tbody>
                 </table>
 
-                <div className='flex flex-col lg:text-xs xl:text-sm 2xl:text-base lg:w-[180px] xl:min-w-[250px] xl:max-w-[300px] xl:w-[20vw] bg-slate-100 border border-slate-300 shadow-md'>
+                <div className='flex flex-col lg:text-xs xl:text-sm 2xl:text-base lg:w-[200px] xl:max-w-[250px] xl:w-[20vw] bg-slate-100 border border-slate-300 shadow-md'>
                     <span className='lg:text-sm xl:text-base 2xl:text-lg px-2 py-1 bg-slate-600 text-white font-medium'>SELECTED VARIANT</span>
-                    <div className='flex flex-col lg:p-1 xl:p-2 mt-1 gap-4'>
-                        <div className='flex flex-row gap-2 items-center font-semibold text-[110%]'>
+                    <div className='flex flex-col h-full lg:p-1 xl:p-2 mt-1 lg:gap-2 xl:gap-4'>
+                        <h3 className='flex flex-row gap-2 items-center font-semibold text-[110%]'>
                             <Missense3DPredictionBadge prediction={selectedVariant?.m3d_predictions?.[0].damaging ?? "N/A"} />
                             {selectedVariant !== null ? `${selectedVariant.wildtype}-${selectedVariant.position}-${selectedVariant.mutant}` : "WT-POS-MUT"}
-                        </div>
+                        </h3>
 
                         <div className='flex flex-col'>
-                            <span className='font-medium'>ClinVar annotations</span>
+                            <h4 className='font-medium'>ClinVar annotations</h4>
                             <span className='flex flex-col lg:py-0.5 lg:px-1 xl:py-1 xl:px-2 bg-slate-200 text-[90%] leading-tight border border-slate-300 rounded-sm shadow-sm'>
                                 {selectedVariant?.clinvar?.annotation.replaceAll("_", " ") ?? "unavailable"}
                             </span>
                         </div>
 
                         <div className='flex flex-col gap-1'>
-                            <span className='font-medium'>genetic variants</span>
+                            <h4 className='font-medium'>genetic variants</h4>
                             {selectedVariant?.genetic_variants?.map((geneticVariant) => {
                                 return (
-                                    <div key={geneticVariant.hgvs_g} className='flex flex-col lg:py-0.5 lg:px-1 xl:py-1 xl:px-2 bg-slate-200 text-[90%] leading-tight border border-slate-300 rounded-sm shadow-sm'>
+                                    <div
+                                        key={geneticVariant.hgvs_g}
+                                        className='flex flex-col lg:py-0.5 lg:px-1 xl:py-1 xl:px-2 bg-slate-200 text-[90%] leading-tight border border-slate-300 rounded-sm shadow-sm'>
                                         <span>{geneticVariant.hgvs_g}</span>
                                         <span>rsID: {geneticVariant?.rs_id ?? "unavailable"}</span>
                                         <span>gnomAD MAF: {geneticVariant?.gnomadg_v3_1_2_af?.allele_frequency ?? "unavailable"}</span>
@@ -350,37 +337,39 @@ export default function VariantsTable({ data }: { data: Array<MissenseVariantRec
                         </div>
 
                         <div className='flex flex-col'>
-                            <span className='font-medium'>structural alerts</span>
-                            <ul className="flex flex-col lg:py-0.5 lg:px-0.5 xl:py-1 xl:px-1 bg-slate-200 text-[90%] leading-tight border border-slate-300 rounded-sm shadow-sm">
-                                {
-                                    selectedVariant?.m3d_predictions?.[0].damaging ? (
-                                        extractFlaggedFeatures(selectedVariant.m3d_predictions[0]).map((flaggedFeature) => {
-                                            return (
-                                                <li key={flaggedFeature} className='text-red-500 font-medium'>
-                                                    <PriorityHighIcon fontSize='inherit' />
-                                                    {flaggedFeature}
-                                                </li>
-                                            );
-                                        })
-                                    ) : (
-                                        'none'
-                                    )
-                                }
+                            <h4 className='font-medium'>structural alerts</h4>
+                            <ul className='flex flex-col lg:py-0.5 lg:px-0.5 xl:py-1 xl:px-1 bg-slate-200 text-[90%] leading-tight border border-slate-300 rounded-sm shadow-sm'>
+                                {selectedVariant?.m3d_predictions?.[0].damaging
+                                    ? extractFlaggedFeatures(selectedVariant.m3d_predictions[0]).map((flaggedFeature) => {
+                                          return (
+                                              <li key={flaggedFeature} className='text-red-500 font-medium'>
+                                                  <PriorityHighIcon fontSize='inherit' />
+                                                  {flaggedFeature}
+                                              </li>
+                                          );
+                                      })
+                                    : "none"}
                             </ul>
                         </div>
+
+                        <Link
+                            prefetch
+                            href={
+                                selectedVariant
+                                    ? `http://missense3d.bc.ic.ac.uk/batch2023/${uniprot}/${uniprot}_${selectedVariant?.position}_A_${selectedVariant?.wildtype}_${selectedVariant?.mutant}/html/1.html`
+                                    : ""
+                            }
+                            className={`relative font-medium w-full mt-auto py-[1%] rounded-sm text-center border ${
+                                selectedVariant
+                                    ? "text-sky-700 bg-sky-200 border-sky-500 hover:bg-sky-400 hover:text-sky-100 hover:cursor-pointer transition-all"
+                                    : "text-slate-500 bg-slate-200 border-slate-300 hover:cursor-default"
+                            }`}
+                            target={selectedVariant ? "_blank" : ""}>
+                            view mutant structure <LaunchIcon fontSize='inherit' />
+                        </Link>
                     </div>
                 </div>
             </div>
         </div>
     );
 }
-
-// export function Missense3DPredictionBadge(prediction: boolean | "N/A") {
-//     if (prediction === true) {
-//         return <span className='px-[3%] py-[1.5%] rounded-full leading-none text-[80%] text-red-700 bg-red-200'>pathogenic</span>;
-//     } else if (prediction === false) {
-//         return <span className='px-[3%] py-[1.5%] rounded-full leading-none text-[80%] text-green-700 bg-green-300'>benign</span>;
-//     } else if (prediction === "N/A") {
-//         return <span className='px-[3%] py-[1.5%] rounded-full leading-none text-[80%] text-slate-700 bg-slate-200'>unavailable</span>;
-//     }
-// }

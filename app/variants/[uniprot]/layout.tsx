@@ -8,6 +8,12 @@ import FeaturesPanel from "@/components/FeaturesPanel";
 import SelectedVariantInfo from "@/components/SelectedVariantInfo";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import Link from "next/link";
+import LaunchIcon from "@mui/icons-material/Launch";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: 'Missense3D DB Alphafold - Variant'
+}
 
 export default async function VariantsLayout({ children, params }: { children: ReactNode; params: { uniprot: string } }) {
     const hostUrl = useHostURL();
@@ -27,7 +33,12 @@ export default async function VariantsLayout({ children, params }: { children: R
                             <div className='font-medium text-white bg-slate-600 py-0.5 px-2 xl:py-1 xl:px-3'>{gene_name}</div>
                         </h1>
                         <h2 className="text-lg xl:text-xl 2xl:text-2xl w-full font-medium leading-tight">
-                            {length}aa &bull; {name}
+                            {length}aa &bull; {name} &bull; {
+                                <Link href={`https://www.uniprot.org/uniprotkb/${uniprot}/entry`} className="text-sky-600 underline"
+                                target='_blank'>
+                                    uniprot <LaunchIcon fontSize="inherit"/>
+                                </Link>
+                            }
                         </h2>
                     </header>
                     {children}

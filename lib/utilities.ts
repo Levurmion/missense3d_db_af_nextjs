@@ -41,3 +41,18 @@ export function getMissense3DPredictions (variantRecord: MissenseVariantRecord, 
 export function sleep(ms: number) {
     return new Promise((resolve, reject) => {setTimeout(resolve, ms)})
 }
+
+export function extractFlaggedFeatures (m3dRecord: Missense3DRecord) {
+    const features = {
+        ...m3dRecord,
+        damaging: undefined,
+        created_at: undefined,
+        algorithm_version: undefined,
+    };
+    return Object.entries(features)
+        .filter((feature) => {
+            const [featureName, isFlagged] = feature;
+            if (isFlagged) return true;
+        })
+        .map((featureName) => featureName[0].replaceAll("_", " "));
+};

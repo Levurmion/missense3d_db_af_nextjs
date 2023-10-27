@@ -16,10 +16,10 @@ export default async function VariantsPage ({ params }: { params: {uniprot: stri
             return (
                 <>
                     <div className="hidden lg:flex flex-row w-full h-fit">
-                        <VariantsTable data={missenseVariants}/>
+                        <VariantsTable data={missenseVariants} uniprot={proteinVariantsJSON.uniprot}/>
                     </div>
                     <div className="flex lg:hidden flex-row w-full h-fit">
-                        <VariantsList data={missenseVariants}/>
+                        <VariantsList data={missenseVariants} uniprot={proteinVariantsJSON.uniprot}/>
                     </div>
                 </>
             )
