@@ -1,4 +1,4 @@
-import { useDBURL } from "@/lib/urls";
+// import { useDBURL } from "@/lib/urls";
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/singleton/prisma";
 
