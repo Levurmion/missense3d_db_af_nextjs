@@ -1,0 +1,63 @@
+.variantsTable {
+    
+    direction: rtl;
+    overscroll-behavior-y: none;
+    @apply block bg-slate-100 rounded-sm overflow-hidden overflow-y-scroll lg:h-[45vh] lg:text-xs xl:text-sm 2xl:text-base shadow-md border border-slate-300;
+
+
+    thead {
+        @apply sticky top-0 bg-slate-600 shadow-md shadow-gray-400 uppercase;
+
+        tr > th {
+            @apply font-semibold text-white py-[0.5%] lg:px-2 2xl:px-4 text-center whitespace-nowrap;
+        }
+
+        tr > th:nth-child(-n+2) {
+            @apply text-right ps-1 lg:pe-2 xl:pe-4 2xl:pe-6
+        }
+
+        tr > th:nth-last-child(-n+3) {
+            @apply text-left lg:ps-2 2xl:ps-4 pe-3
+        }
+    }
+
+    tbody {
+
+        tr {
+            @apply transition-all border-b border-slate-200
+        }
+        
+        tr:hover {
+            @apply bg-slate-200 cursor-pointer
+        }
+        
+        tr:active {
+            @apply bg-slate-300 cursor-pointer
+        }
+
+        tr[is-selected="true"] {
+            @apply bg-slate-300
+        }
+
+        tr > td {
+            @apply font-medium py-2 text-center;
+        }
+
+        tr > td:first-child {
+            @apply font-semibold;
+        }
+
+        tr > td:nth-child(-n+2) {
+            @apply text-right ps-3 lg:pe-2 xl:pe-4 2xl:pe-6;
+        }
+
+        tr > td:nth-last-child(-n+3) {
+            @apply text-left lg:ps-2 2xl:ps-4 pe-3;
+        }
+
+        // tr:nth-child(2n) {
+        //     @apply bg-slate-200;
+        // }
+    }
+
+}

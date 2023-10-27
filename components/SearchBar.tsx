@@ -39,9 +39,9 @@ export default function SearchBar({ placeholder, examples }: SearchBar) {
 
     return (
         // input wrapper
-        <div className='flex w-full h-full relative shadow-md shadow-slate-300'>
+        <div className='flex w-full h-full border border-slate-300 relative shadow-md'>
             <input className='flex w-full h-full px-2 xl:px-4' type='text' placeholder={placeholderString} value={searchString} onChange={handleInputChange}></input>
-            <div className='absolute flex items-center justify-center right-0 h-full text-4xl 2xl:text-5xl bg-slate-200 text-slate-500 hover:cursor-pointer hover:text-slate-600 hover:bg-slate-300 active:bg-slate-300 active:text-slate-700 transition-colors aspect-square'
+            <div className='absolute flex items-center justify-center right-0 h-full text-4xl 2xl:text-5xl bg-slate-200 text-slate-500 hover:cursor-pointer hover:text-slate-600 hover:bg-slate-300 active:bg-slate-300 active:text-slate-700 transition-colors aspect-square border-l border-slate-300'
                 onClick={handleSearchSubmit}
             >
                 <SearchIcon fontSize='inherit' />

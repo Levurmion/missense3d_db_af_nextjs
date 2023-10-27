@@ -1,4 +1,5 @@
-import VariantsTable from "@/components/VariantsTable/VariantsTable"
+import VariantsList from "@/components/client/VariantsList"
+import VariantsTable from "@/components/client/VariantsTable/VariantsTable"
 import { ProteinRecord } from "@/lib/types"
 import { useHostURL } from "@/lib/urls"
 
@@ -13,13 +14,16 @@ export default async function VariantsPage ({ params }: { params: {uniprot: stri
 
         if (missenseVariants) {
             return (
-                <div className="h-full">
-                    <VariantsTable data={missenseVariants}/>
-                </div>
+                <>
+                    <div className="hidden lg:flex flex-row w-full h-fit">
+                        <VariantsTable data={missenseVariants}/>
+                    </div>
+                    <div className="flex lg:hidden flex-row w-full h-fit">
+                        <VariantsList data={missenseVariants}/>
+                    </div>
+                </>
             )
-        } else {
-            <div className="h-full w-full">variants unavailable</div>
-        }
+        } 
     }
 
 

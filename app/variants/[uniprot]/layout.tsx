@@ -1,52 +1,38 @@
-import { ReactNode} from "react";
-import {useHostURL} from "@/lib/urls";
+import { ReactNode } from "react";
+import { useHostURL } from "@/lib/urls";
 import { ProteinRecord } from "@/lib/types";
 import { getProteinNames } from "@/lib/utilities";
 import FeatureCard from "@/components/FeatureCard";
 import { VariantContextProvider } from "@/components/contexts/useVariantContext";
 import FeaturesPanel from "@/components/FeaturesPanel";
 import SelectedVariantInfo from "@/components/SelectedVariantInfo";
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import Link from "next/link";
 
-export default async function VariantsLayout({ children, params }: {children: ReactNode, params: { uniprot: string }}) {
+export default async function VariantsLayout({ children, params }: { children: ReactNode; params: { uniprot: string } }) {
+    const hostUrl = useHostURL();
+    const proteinVariantsRes = await fetch(`${hostUrl}/api/variants/${params.uniprot}`);
 
-    const hostUrl = useHostURL()
-    const proteinVariantsRes = await fetch(`${hostUrl}/api/variants/${params.uniprot}`)
-    
     if (proteinVariantsRes.status === 200) {
-        const proteinVariantsJSON: ProteinRecord = await proteinVariantsRes.json()
-        const { protein_name, uniprot, length, missense_variants } = proteinVariantsJSON
-        const { name, altNames } = getProteinNames(protein_name)
+        const proteinVariantsJSON: ProteinRecord = await proteinVariantsRes.json();
+        const { protein_name, uniprot, length, missense_variants, gene_name } = proteinVariantsJSON;
+        const { name, altNames } = getProteinNames(protein_name);
 
         return (
-            <VariantContextProvider value={missense_variants ? missense_variants[0] : null}>
-                <section className="flex flex-col md:grid lg:grid-cols-[2fr_1fr] 2xl:grid-cols-[7fr_3fr] w-full md:px-10 px-3 xl:px-12 gap-6 my-10">
-
-                    {/* protein and variants info */}
-                    <div className="flex flex-col gap-8 justify-between">
-
-                        {/* protein info */}
-                        <div className="flex flex-col">
-                            <h1 className="text-2xl 2xl:text-4xl"><span className="font-semibold">{uniprot}</span> &bull; <span className="font-medium">{length} aa</span></h1>
-                            <h2 className="text-lg 2xl:text-2xl mb-2">{name}</h2>
-                            <Link 
-                                target="_blank" 
-                                href={`https://www.uniprot.org/uniprotkb/${uniprot}/entry`}
-                                className="w-fit bg-regal-blue-400 hover:bg-regal-blue-500 hover:-translate-y-0.5 hover:shadow-lg transition-all py-1 px-2 rounded-md text-white shadow-md"
-                            >
-                                view on uniprot <KeyboardDoubleArrowRightIcon />
-                            </Link>
-                        </div>
-
-                        {/* selected variant info */}
-                        {children}
-                    </div>
-                    <div className="flex flex-col justify-between grow gap-4">
-                        <SelectedVariantInfo />
-                    </div>
-                </section>
-            </VariantContextProvider>
-        )
+            <main className='flex flex-col w-full items-center gap-6'>
+                <div className="flex flex-col w-full lg:w-fit gap-6">
+                    <header className='flex flex-col w-full gap-1 xl:gap-2'>
+                        <h1 className='flex flex-row text-xl w-fit xl:text-2xl 2xl:text-3xl items-center flex-wrap shadow-md shadow-slate-300'>
+                            <div className='font-semibold text-white bg-red-600 py-0.5 px-2 xl:py-1 xl:px-3'>{uniprot}</div>
+                            <div className='font-medium text-white bg-slate-600 py-0.5 px-2 xl:py-1 xl:px-3'>{gene_name}</div>
+                        </h1>
+                        <h2 className="text-lg xl:text-xl 2xl:text-2xl w-full font-medium leading-tight">
+                            {length}aa &bull; {name}
+                        </h2>
+                    </header>
+                    {children}
+                </div>
+            </main>
+        );
     }
 }
