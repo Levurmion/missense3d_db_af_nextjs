@@ -5,8 +5,6 @@ import { useLayoutEffect, useState, useRef } from "react";
 import ProteinCard from "./ProteinCard";
 import { ReactNode } from "react";
 
-import { ProteinRecord } from "./ProteinCard";
-
 export default function ScrollYBox ({ children }: { children: ReactNode }) {
 
     const scrollBoxRef = useRef(null)

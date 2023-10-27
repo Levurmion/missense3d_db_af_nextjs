@@ -70,7 +70,7 @@ export default function VariantsList({ data, uniprot }: { data: Array<MissenseVa
                         <h4 className='font-medium'>genetic variants</h4>
                         {modalData?.genetic_variants?.map((geneticVariant) => {
                             return (
-                                <span className='flex flex-col p-1 md:p-2 bg-slate-200 text-[90%] leading-tight border border-slate-300 rounded-sm shadow-sm'>
+                                <span key={geneticVariant.hgvs_g} className='flex flex-col p-1 md:p-2 bg-slate-200 text-[90%] leading-tight border border-slate-300 rounded-sm shadow-sm'>
                                     <span>{geneticVariant.hgvs_g}</span>
                                     <span>rsID: {geneticVariant?.rs_id ?? "unavailable"}</span>
                                     <span>gnomAD MAF: {geneticVariant?.gnomadg_v3_1_2_af?.allele_frequency ?? "unavailable"}</span>
