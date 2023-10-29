@@ -4,6 +4,7 @@ import fetchVariantsServerSide from "@/lib/fetchVariantsServerSide"
 import { ProteinRecord } from "@/lib/types"
 import { useHostURL } from "@/lib/urls"
 
+
 export default async function VariantsPage ({ params }: { params: {uniprot: string} }) {
 
     const proteinVariants = await fetchVariantsServerSide(params.uniprot)

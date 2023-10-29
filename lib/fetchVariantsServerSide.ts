@@ -86,6 +86,8 @@ export default async function fetchVariantsServerSide (uniprot: string) {
         }
     })
 
+    console.log(prismaResponse)
+
     // change Decimal to Number
     const regularizedPrismaResponse =  JSON.parse(JSON.stringify(prismaResponse))
 
