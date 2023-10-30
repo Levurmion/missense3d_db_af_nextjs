@@ -27,12 +27,6 @@ export default function StatisticsPage () {
                             Alleles resulting in missense substitutions were mapped onto the human GRCh38 build. Minor allele frequencies therefore corresponded to records held in the GnomAD v3.1.2 database.
                         </p>
                     </div>
-                    <div>
-                        <h3 className="font-semibold">missense variants</h3>
-                        <p>
-                            The list of human missense variants collated in the database were derived from the Uniprot <i>homo_sapiens_variation.txt</i> repository, version 05-2023.
-                        </p>
-                    </div>
                 </div>
             </section>
 
