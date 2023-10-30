@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <div className='flex flex-col items-center w-4/5 my-auto'>
+      <div className='flex flex-col items-center w-4/5 my-8'>
 
         {/* Hero Text */}
         <h1 className='w-full text-5xl font-semibold mb-4'>
