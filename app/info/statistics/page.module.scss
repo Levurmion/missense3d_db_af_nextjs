@@ -1,0 +1,5 @@
+.databaseTable {
+    tr > :nth-child(1) {
+        @apply font-semibold pe-4
+    }
+}

@@ -35,19 +35,19 @@ export default function NavigationMenu({ breakpoint }: { breakpoint: number }) {
     } else if (deviceWidth >= breakpoint) {
         return (
             <div className='flex flex-row text-lg 2xl:text-xl gap-10 font-semibold items-center justify-between'>
-                <Link href='/documentation' className='relative group'>
+                <Link href='/info/documentation' className='relative group'>
                     Documentation
                     <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-red-700 -mt-[0.2rem]'></div>
                 </Link>
-                <Link href='/statistics' target='_blank' className='relative group'>
+                <Link href='/info/statistics' className='relative group'>
                     Statistics
                     <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-red-700 -mt-[0.2rem]'></div>
                 </Link>
-                <Link href='/contact' target='_blank' className='relative group'>
+                {/* <Link href='/info/contact' className='relative group'>
                     Contact
                     <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-red-700 -mt-[0.2rem]'></div>
-                </Link>
-                <Link href='http://missense3d.bc.ic.ac.uk/missense3d/' target='_blank' className='relative group'>
+                </Link> */}
+                <Link href='http://missense3d.bc.ic.ac.uk/missense3d/' className='relative group'>
                     Missense3D Webserver
                     <div className='w-0 group-hover:w-full transition-all duration-500 ease-in-out h-[0.2rem] 2xl:h-1 bg-red-700 -mt-[0.2rem]'></div>
                 </Link>
@@ -91,7 +91,7 @@ function HamburgerMenu() {
                 <div className='flex flex-col gap-8 items-center w-full text-center'>
                     <Link
                         className={`${isOpen ? "translate-y-0 oapcity-1" : "-translate-y-4 opacity-0"} delay-0 transition-all duration-700 ease-in-out`}
-                        href='/documentation'
+                        href='/info/documentation'
                         onClick={() => {
                             setIsOpen(false);
                         }}>
@@ -99,26 +99,23 @@ function HamburgerMenu() {
                     </Link>
                     <Link
                         className={`${isOpen ? "translate-y-0 oapcity-1" : "-translate-y-4 opacity-0"} delay-[100ms] transition-all duration-700 ease-in-out`}
-                        href='/statistics'
-                        target='_blank'
+                        href='/info/statistics'
                         onClick={() => {
                             setIsOpen(false);
                         }}>
                         Statistics
                     </Link>
-                    <Link
+                    {/* <Link
                         className={`${isOpen ? "translate-y-0 oapcity-1" : "-translate-y-4 opacity-0"} delay-[200ms] transition-all duration-700 ease-in-out`}
-                        href='/contact'
-                        target='_blank'
+                        href='/info/contact'
                         onClick={() => {
                             setIsOpen(false);
                         }}>
                         Contact
-                    </Link>
+                    </Link> */}
                     <Link
                         className={`${isOpen ? "translate-y-0 oapcity-1" : "-translate-y-4 opacity-0"} delay-[300ms] transition-all duration-700 ease-in-out`}
                         href='http://missense3d.bc.ic.ac.uk/missense3d/'
-                        target='_blank'
                         onClick={() => {
                             setIsOpen(false);
                         }}>

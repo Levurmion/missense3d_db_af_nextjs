@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} flex flex-col gap-8`}>
         <nav className="flex flex-row bg-slate-200 relative justify-between items-center w-full p-2 sm:p-4 border-b border-slate-300">
 
             <Link href='\' prefetch className='flex h-12 2xl:h-16 overflow-hidden relative aspect-[9/2]'>
