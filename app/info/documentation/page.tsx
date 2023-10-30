@@ -122,7 +122,7 @@ export default function DocumentationPage() {
                         </div>
                         <div>
                         <h3 className='font-semibold'>Gly in a bend</h3>
-                        <p>The wild-type residue is glycine and is located in a bend curvature (reported 'S' in DSSP).</p>
+                        <p>The wild-type residue is glycine and is located in a bend curvature (reported {"'S'"} in DSSP).</p>
                         </div>
                         <div>
                         <h3 className='font-semibold'>Secondary structure altered</h3>
