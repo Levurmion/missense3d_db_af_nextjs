@@ -55,9 +55,11 @@ export default function SearchBar({ placeholder, examples }: SearchBar) {
                         numExamplesRendered += 1;
                         if (numExamplesRendered < numExamples.current) {
                             return (
+                                <>
                                 <span key={example} onClick={handleExampleClick} className='hover:cursor-pointer hover:text-regal-blue-800'>
-                                    {example} |{" "}
-                                </span>
+                                    {example}
+                                </span><span> | </span>
+                                </>
                             );
                         } else {
                             return (
