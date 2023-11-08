@@ -6,6 +6,7 @@ import { useHostURL } from "@/lib/urls"
 import { getProteinNames } from "@/lib/utilities";
 import Link from "next/link"
 import LaunchIcon from "@mui/icons-material/Launch"
+import VariantsPageLoading from "@/components/client/LoadingIndicator"
 
 export default async function VariantsPage ({ params }: { params: {uniprot: string} }) {
 

@@ -1,16 +1,12 @@
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import LoadingIndicator from '@/components/client/LoadingIndicator';
 
 export default function VariantsLoading () {
 
     return (
         <>
-            <div className="flex flex-col justify-center items-center w-[80vw] h-[60vh] lg:h-[45vh] bg-slate-200 shadow-md">
-                <div className="flex flex-col items-center text-4xl">
-                    <AutorenewIcon fontSize="inherit" className="animate-spin"/>
-                    <div className="text-[50%] leading-tight">
-                        retrieving variants
-                    </div>
-                </div>
+            <div className="flex flex-col items-center justify-between h-[60vh] w-[80vw]">
+                <LoadingIndicator text={'loading variants...'}/>
             </div>
         </>
     )

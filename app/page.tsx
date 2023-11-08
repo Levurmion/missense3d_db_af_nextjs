@@ -23,7 +23,7 @@ export default function Home() {
         </p>
 
         <p className='inline text-lg sm:text-xl max-w-[75ch] mt-6 text-center'>
-          *Publication in writing. This site is a demo version hosting 116,878 missense variants. The full dataset will be released once our manuscript passes peer-review.
+          *Publication in writing. This site is a demo version hosting 116,878 missense variants. Mutant structure predictions are also still being generated for all 6.5M variants. The full dataset will be released once our manuscript passes peer-review.
         </p>
 
       </div>

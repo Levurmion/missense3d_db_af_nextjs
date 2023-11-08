@@ -6,6 +6,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import ErrorIcon from '@mui/icons-material/Error';
 import { ProteinRecord } from '@/lib/types';
 import ProteinCard from '../ProteinCard';
+import LoadingIndicator from './LoadingIndicator';
 
 interface PageProps {
     searchString: string,
@@ -79,26 +80,21 @@ export default function SearchResults({ searchString, limit }: { searchString: s
     function handleRenderContent () {
         if (newPage === 'loading' && pages.length === 0) {
             return (
-                <div className='flex flex-col items-center my-auto text-center'>
-                    <div className='text-7xl text-slate-600'>
-                        <AutorenewIcon fontSize='inherit' className='animate-spin'/>
-                    </div>
-                    <span className='text-2xl text-slate-800 font-medium animate-pulse'>
-                        searching...
-                    </span>
+                <div className='flex flex-col items-center my-auto text-center text-2xl'>
+                    <LoadingIndicator text={'searching...'} />
                 </div>
             )
         }
         else if (newPage === 'error') {
             return (
-                <div className='flex flex-col items-center my-auto text-center'>
+                <div className='flex flex-col items-center my-auto text-center text-2xl'>
                     <div className='text-6xl text-red-600'>
                         <ErrorIcon fontSize='inherit'/>
                     </div>
                     <span className='text-2xl text-red-600 font-medium'>
                         unexpected error!
                     </span>
-                    <Link href='\' prefetch className='pt-2 underline text-blue-500 text-2xl hover:text-blue-800 transition-all'>
+                    <Link href='\' prefetch className='pt-2 underline text-blue-500 hover:text-blue-800 transition-all'>
                         {'<-'} home
                     </Link>
                 </div>
@@ -106,11 +102,11 @@ export default function SearchResults({ searchString, limit }: { searchString: s
         }
         else if (newPage === 'no content') {
             return (
-                <div className='flex flex-col items-center my-auto text-center'>
+                <div className='flex flex-col items-center my-auto text-center text-2xl'>
                     <h2 className='font-medium'>
                         no matches found
                     </h2>
-                    <Link href='\' prefetch className='underline text-blue-500 text-2xl hover:text-blue-800 transition-all'>
+                    <Link href='\' prefetch className='underline text-blue-500 hover:text-blue-800 transition-all'>
                         {'<-'} restart search
                     </Link>
                 </div>
